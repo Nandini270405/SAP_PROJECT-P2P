@@ -24,26 +24,23 @@ Users can explore the full Procure-to-Pay workflow, including requisition creati
 
 ## ✨ Key Features
 
-### 🔹 SAP-Standard Business Logic
-- **Master Data Governance:** Utilizes centralized Material Master, Vendor Master, and Cost Center records to eliminate manual data entry errors.
-- **Account Assignment (Category K):** Implements complex ERP logic where non-stock/service items MUST be assigned to a specific department's Cost Center budget.
-- **Three-Way Match:** A critical financial control that ensures invoices are only verified if they match the original Purchase Order and the confirmed Goods Receipt.
+### 🔹 Enterprise Business Logic
+- **Release Strategy (Approvals):** Implements a high-value financial control where any requisition exceeding $5,000 triggers a mandatory "Pending Approval" state, requiring executive release before ordering.
+- **Inventory & Stock Management:** Integrated virtual warehouse that automatically updates stock levels upon Goods Receipt (MIGO), allowing for real-time inventory tracking.
+- **Vendor Performance Analytics:** Advanced logic calculates delivery "Lead Times" for every vendor, providing a reliability score based on the speed from Order to Receipt.
+- **Three-Way Match:** Strict accounting control ensuring Invoices (MIRO) are only verified if they align perfectly with the original Purchase Order and confirmed Goods Receipt.
+- **Account Assignment (Category K):** Enforces mandatory Cost Center allocation for all non-stock/service items to ensure departmental budget accountability.
 
 ### 🔹 Advanced User Experience
-- **SAP T-Code Engine:** Navigate the system using industry-standard transaction codes via a functional command bar:
-  - `ME51N` (Requisition)
-  - `ME21N` (Orders)
-  - `MIGO` (Goods Receipt)
-  - `MIRO` (Invoice)
-  - `F-53` (Payments)
-  - `/DB` (Dashboard)
-- **Document Generation:** Real-time generation of professional, printable Purchase Order documents with corporate branding.
-- **Dynamic Analytics:** Executive dashboard tracking "Total Spend," "Spend by Vendor," and real-time workflow bottlenecks.
+- **Next-Gen SAP Horizon UI:** A premium design system featuring **High-Contrast Glassmorphism**, floating navigation consoles, and micro-interactions.
+- **SAP T-Code Engine:** Navigate the entire system using standard transaction codes (e.g., `ME51N`, `MIGO`, `MIRO`, `F-53`) via a functional command terminal.
+- **Multi-Tab Terminal Support:** Support for the `/N` prefix (e.g., `/NME21N`) allows power users to open transactions in new browser tabs simultaneously.
+- **Enterprise Reporting:** One-click **Export to CSV** functionality on all data tables for external audit and procurement reporting.
 
-### 🔹 Technical Highlights
-- **Persistence:** All transaction data is stored in `localStorage`, ensuring the "Company's" data persists across browser refreshes.
-- **Responsive UI:** Built with **Tailwind CSS** for a clean, professional, enterprise-grade aesthetic.
-- **Toast Notifications:** Immediate feedback for all business actions.
+### 🔹 Technical Core
+- **Client-Side Persistence:** Utilizing the Web Storage API (LocalStorage) to maintain a persistent corporate environment that survives browser refreshes.
+- **Visual Intelligence:** Executive dashboard with dynamic SVG/CSS visualizations for Spend, Inventory, and Logistic Latency.
+- **Modern Stack:** Built with **Next.js 15 (App Router)** and **Tailwind CSS** for maximum performance and a responsive, enterprise-grade aesthetic.
 
 ---
 
