@@ -15,10 +15,10 @@ export default function RootLayout({ children }) {
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className} suppressHydrationWarning>
         <NotificationProvider>
-          <div className="flex bg-gray-50 min-h-screen">
+          <div className="flex bg-[#f0f2f5] min-h-screen">
             <Sidebar />
-            <main className="flex-1 ml-64 p-8">
-              <div className="max-w-6xl mx-auto">
+            <main className="flex-1 ml-72 p-8 pt-12">
+              <div className="max-w-7xl mx-auto">
                 {children}
               </div>
             </main>

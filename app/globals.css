@@ -3,52 +3,54 @@
 @tailwind utilities;
 
 :root {
-  --background: #f5f6f7; /* Horizon Light Grey */
-  --foreground: #1d2d3e; /* Horizon Dark Blue Text */
+  --background: #f0f2f5; 
+  --foreground: #1d2d3e; 
   --sap-blue: #0070d2;
-  --sap-shell: #1c2d3d; /* Darker Horizon Shell */
-  --sap-accent: #e5f1fa;
-  --sap-success: #107e3e;
-  --sap-warning: #e9730c;
-  --sap-error: #bb0000;
+  --sap-shell: #121c26; 
+  --sap-glass: rgba(255, 255, 255, 0.8);
+  --sap-border: rgba(0, 0, 0, 0.05);
 }
 
 body {
-  background: var(--background);
+  background: radial-gradient(circle at top right, #eef2f7 0%, #f0f2f5 100%);
   color: var(--foreground);
   font-family: '72', '72-Web', Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
 }
 
 @layer components {
-  .sap-card {
-    @apply bg-white border border-gray-200 rounded-xl shadow-[0_0.125rem_0.25rem_rgba(0,0,0,0.075)] hover:shadow-[0_0.25rem_0.5rem_rgba(0,0,0,0.1)] transition-all duration-300;
+  .sap-glass-card {
+    @apply bg-white/80 backdrop-blur-md border border-white/50 rounded-2xl shadow-[0_8px_32px_0_rgba(31,38,135,0.07)] hover:shadow-[0_8px_32px_0_rgba(31,38,135,0.12)] transition-all duration-500;
   }
   
-  .sap-button-primary {
-    @apply bg-[#0070d2] text-white px-5 py-2 rounded-lg font-bold hover:bg-[#005fb8] transition-all active:scale-95 shadow-sm;
+  .sap-button-gradient {
+    @apply bg-gradient-to-br from-[#0070d2] to-[#005fb8] text-white px-6 py-2.5 rounded-xl font-bold shadow-lg shadow-blue-500/20 hover:shadow-blue-500/40 hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300;
   }
 
-  .sap-input {
-    @apply border border-gray-300 rounded-lg px-3 py-2 focus:border-[#0070d2] focus:ring-1 focus:ring-[#0070d2] outline-none transition-all bg-white;
+  .sap-nav-item {
+    @apply relative flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 overflow-hidden;
   }
 
-  .sap-tile-header {
-    @apply text-sm font-bold text-[#6a6d70] uppercase tracking-wider mb-4 border-b border-gray-100 pb-2;
+  .sap-nav-item-active {
+    @apply bg-gradient-to-r from-blue-600/20 to-transparent border-l-4 border-blue-500 text-blue-100 shadow-inner;
+  }
+
+  .sap-stat-pill {
+    @apply px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest shadow-sm;
   }
 }
 
-/* Custom scrollbar for SAP Shell */
-::-webkit-scrollbar {
-  width: 6px;
+/* Smooth background transitions for all containers */
+* {
+  @apply transition-colors duration-300;
 }
-::-webkit-scrollbar-track {
-  background: transparent;
+
+/* Custom Horizontal Pulse for active stages */
+@keyframes stage-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.4); }
+  70% { box-shadow: 0 0 0 15px rgba(59, 130, 246, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(59, 130, 246, 0); }
 }
-::-webkit-scrollbar-thumb {
-  background: rgba(0,0,0,0.1);
-  border-radius: 10px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(0,0,0,0.2);
+.active-stage {
+  animation: stage-pulse 2s infinite;
 }

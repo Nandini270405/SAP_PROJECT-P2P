@@ -40,44 +40,51 @@ export default function Dashboard() {
   ];
 
   return (
-    <div className="space-y-8 pb-12 animate-in fade-in slide-in-from-bottom-4 duration-500">
-      <div className="flex justify-between items-start">
+    <div className="space-y-12 pb-12 animate-in fade-in slide-in-from-bottom-6 duration-700">
+      <div className="flex justify-between items-end border-b border-gray-200 pb-8">
         <div>
-          <h1 className="text-3xl font-black text-[#1d2d3e] tracking-tight">Executive Dashboard</h1>
-          <p className="text-gray-500 font-medium">Global Procurement Analytics & Workflow Monitoring</p>
+          <h1 className="text-4xl font-black text-[#1d2d3e] tracking-tight mb-2">Executive Command</h1>
+          <p className="text-gray-500 font-bold uppercase text-xs tracking-[0.3em]">Real-Time SAP Intelligence</p>
         </div>
         <button 
           onClick={handleReset}
-          className="flex items-center gap-2 px-4 py-2 text-xs font-bold text-red-600 border border-red-200 rounded-lg hover:bg-red-50 transition-all bg-white shadow-sm active:scale-95"
+          className="sap-button-gradient flex items-center gap-2 text-xs uppercase"
         >
           <RefreshCcw size={14} />
-          SYSTEM RESET
+          Reset Core
         </button>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
         {statCards.map((stat, i) => (
-          <div key={i} className="sap-card p-6 flex items-center justify-between group cursor-default">
-            <div>
-              <p className="text-xs font-bold text-gray-400 uppercase tracking-widest">{stat.label}</p>
-              <p className="text-3xl font-black text-[#1d2d3e] mt-1 tracking-tighter">{stat.value}</p>
-            </div>
-            <div className={`p-4 rounded-xl ${stat.color} group-hover:rotate-12 transition-transform duration-300`}>
-              {stat.icon}
+          <div key={i} className="sap-glass-card p-8 group overflow-hidden relative">
+            <div className="absolute top-0 right-0 w-24 h-24 bg-blue-500/5 rounded-full -mr-12 -mt-12 group-hover:scale-150 transition-transform duration-700"></div>
+            <div className="relative z-10 flex flex-col gap-4">
+              <div className={`w-12 h-12 rounded-2xl ${stat.color} flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform`}>
+                {stat.icon}
+              </div>
+              <div>
+                <p className="text-[10px] font-black text-gray-400 uppercase tracking-widest">{stat.label}</p>
+                <p className="text-3xl font-black text-[#1d2d3e] mt-1 tracking-tighter tabular-nums">{stat.value}</p>
+              </div>
             </div>
           </div>
         ))}
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <div className="lg:col-span-2 space-y-8">
-          <div className="sap-card p-8">
-            <h2 className="sap-tile-header flex items-center gap-2">
-              <TrendingUp size={16} className="text-blue-500" />
-              Real-Time Workflow Stage Tracking
-            </h2>
-            <div className="flex items-center justify-between max-w-2xl mx-auto py-10 relative">
-              <div className="absolute top-1/2 left-0 right-0 h-0.5 bg-gray-100 -translate-y-1/2 -z-0"></div>
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
+        <div className="lg:col-span-2 space-y-10">
+          <div className="sap-glass-card p-10">
+            <div className="flex justify-between items-center mb-12">
+              <h2 className="text-xs font-black text-gray-500 uppercase tracking-[0.2em] flex items-center gap-2">
+                <TrendingUp size={16} className="text-blue-500" />
+                Procurement Lifecycle Progress
+              </h2>
+              <span className="sap-stat-pill bg-blue-50 text-blue-600">Active Sync</span>
+            </div>
+            
+            <div className="flex items-center justify-between max-w-3xl mx-auto py-12 relative">
+              <div className="absolute top-1/2 left-0 right-0 h-1 bg-gray-100 -translate-y-1/2 -z-0 rounded-full"></div>
               
               {[
                 { label: 'PR', status: 'Requested' },
@@ -86,19 +93,19 @@ export default function Dashboard() {
                 { label: 'IR', status: 'Invoiced' },
                 { label: 'FI', status: 'Paid' }
               ].map((step, i) => (
-                <div key={i} className="relative z-10 flex flex-col items-center gap-3">
-                  <div className={`w-14 h-14 rounded-2xl flex items-center justify-center font-black text-sm transition-all duration-700 ${
+                <div key={i} className="relative z-10 flex flex-col items-center gap-4 group">
+                  <div className={`w-16 h-16 rounded-[2rem] flex items-center justify-center font-black text-sm transition-all duration-1000 ${
                     stats[step.status] > 0 
-                      ? 'bg-blue-600 text-white shadow-xl shadow-blue-200 rotate-0' 
-                      : 'bg-white border border-gray-200 text-gray-300 rotate-12'
+                      ? 'bg-blue-600 text-white shadow-2xl shadow-blue-500/40 active-stage' 
+                      : 'bg-white border-2 border-gray-100 text-gray-200 group-hover:border-blue-200'
                   }`}>
                     {step.label}
                   </div>
-                  <span className={`text-[10px] font-black uppercase tracking-tighter transition-colors ${
-                    stats[step.status] > 0 ? 'text-blue-600' : 'text-gray-400'
-                  }`}>{step.label} Stage</span>
+                  <span className={`text-[10px] font-black uppercase tracking-tighter transition-all ${
+                    stats[step.status] > 0 ? 'text-blue-600' : 'text-gray-300'
+                  }`}>{step.label} stage</span>
                   {stats[step.status] > 0 && (
-                    <span className="absolute -top-6 bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-[10px] font-black shadow-sm">
+                    <span className="absolute -top-8 bg-blue-600 text-white px-3 py-1 rounded-lg text-[10px] font-black shadow-lg animate-bounce">
                       {stats[step.status]}
                     </span>
                   )}
@@ -107,22 +114,22 @@ export default function Dashboard() {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="sap-card p-6 border-l-4 border-l-purple-500">
-              <h2 className="sap-tile-header flex items-center gap-2">
-                <Layers size={16} className="text-purple-500" />
-                Material Inventory
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+            <div className="sap-glass-card p-8 border-t-4 border-t-purple-500">
+              <h2 className="text-xs font-black text-gray-400 uppercase tracking-widest mb-8 flex items-center gap-2">
+                <Layers size={18} className="text-purple-500" />
+                Inventory Assets
               </h2>
-              <div className="space-y-5 mt-4">
+              <div className="space-y-6">
                 {Object.entries(stock).map(([item, qty]) => (
-                  <div key={item} className="space-y-2">
-                    <div className="flex justify-between text-xs font-bold">
-                      <span className="text-gray-500">{item}</span>
-                      <span className="text-[#1d2d3e]">{qty}</span>
+                  <div key={item} className="space-y-2 group">
+                    <div className="flex justify-between text-[11px] font-black uppercase tracking-tighter">
+                      <span className="text-gray-500 group-hover:text-purple-600 transition-colors">{item}</span>
+                      <span className="text-[#1d2d3e]">{qty} Units</span>
                     </div>
-                    <div className="w-full h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                    <div className="w-full h-2 bg-gray-100 rounded-full overflow-hidden p-0.5 shadow-inner">
                       <div 
-                        className={`h-full transition-all duration-1000 rounded-full ${qty < 20 ? 'bg-red-500' : 'bg-blue-500'}`} 
+                        className={`h-full transition-all duration-1000 rounded-full ${qty < 20 ? 'bg-gradient-to-r from-red-500 to-orange-400' : 'bg-gradient-to-r from-purple-500 to-blue-500'}`} 
                         style={{ width: `${Math.min(100, (qty / 200) * 100)}%` }}
                       ></div>
                     </div>
@@ -131,28 +138,28 @@ export default function Dashboard() {
               </div>
             </div>
 
-            <div className="sap-card p-6 border-l-4 border-l-yellow-500">
-              <h2 className="sap-tile-header flex items-center gap-2">
-                <Award size={16} className="text-yellow-500" />
-                Vendor Reliability
+            <div className="sap-glass-card p-8 border-t-4 border-t-yellow-500">
+              <h2 className="text-xs font-black text-gray-400 uppercase tracking-widest mb-8 flex items-center gap-2">
+                <Award size={18} className="text-yellow-500" />
+                Logistic Latency
               </h2>
-              <div className="space-y-3 mt-4">
+              <div className="space-y-4">
                 {Object.keys(stats.vendorPerformance).length > 0 ? (
                   Object.entries(stats.vendorPerformance).map(([vendor, time]) => (
-                    <div key={vendor} className="flex items-center justify-between p-3 bg-[#f5f6f7] rounded-xl border border-gray-100">
-                      <span className="text-xs font-bold text-gray-700">{vendor}</span>
-                      <div className="flex items-center gap-2">
-                        <div className="flex flex-col items-end">
-                          <span className="text-xs font-black text-blue-600">{time}m</span>
-                          <span className="text-[8px] font-bold text-gray-400 uppercase tracking-tighter">Avg Latency</span>
+                    <div key={vendor} className="flex items-center justify-between p-4 bg-gray-50/50 rounded-2xl border border-gray-100 group hover:bg-white hover:shadow-xl transition-all duration-300">
+                      <span className="text-xs font-black text-gray-700">{vendor}</span>
+                      <div className="flex items-center gap-3">
+                        <div className="h-2 w-16 bg-gray-100 rounded-full overflow-hidden">
+                          <div className="h-full bg-yellow-500" style={{ width: `${Math.min(100, (time/10)*100)}%` }}></div>
                         </div>
+                        <span className="text-xs font-black text-blue-600">{time}m</span>
                       </div>
                     </div>
                   ))
                 ) : (
-                  <div className="h-40 flex flex-col items-center justify-center text-gray-400 text-[10px] font-bold uppercase text-center space-y-2">
-                    <AlertCircle size={20} className="opacity-20" />
-                    <span>Insufficient Logistics Data</span>
+                  <div className="h-44 flex flex-col items-center justify-center gap-4 opacity-30 grayscale">
+                    <AlertCircle size={32} />
+                    <span className="text-[10px] font-black uppercase tracking-[0.2em]">Data Pending</span>
                   </div>
                 )}
               </div>
@@ -160,55 +167,64 @@ export default function Dashboard() {
           </div>
         </div>
 
-        <div className="space-y-8">
-          <div className="bg-[#1c2d3d] p-8 rounded-2xl shadow-2xl text-white relative overflow-hidden group">
-            <div className="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-700"></div>
-            <h2 className="text-xs font-black opacity-50 uppercase tracking-[0.2em] mb-6 flex items-center gap-2">
-              <CreditCard size={14} />
-              Balance Settled
-            </h2>
-            <div className="space-y-1 mb-8">
-              <p className="text-4xl font-black tracking-tighter tabular-nums">${stats.TotalSpend.toLocaleString()}</p>
-              <p className="text-[10px] font-bold text-blue-400 uppercase tracking-widest">Confirmed Expenditure</p>
-            </div>
-            
-            <div className="space-y-4 pt-6 border-t border-white/10">
-              <div className="flex items-center justify-between">
-                <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Awaiting Order</span>
-                <span className="text-sm font-black">{stats.PendingOrders}</span>
+        <div className="space-y-10">
+          <div className="bg-[#121c26] p-10 rounded-[2.5rem] shadow-2xl text-white relative overflow-hidden group">
+            <div className="absolute -top-20 -right-20 w-64 h-64 bg-blue-600/20 rounded-full blur-3xl group-hover:scale-150 transition-transform duration-1000"></div>
+            <div className="relative z-10">
+              <h2 className="text-[10px] font-black text-blue-400 uppercase tracking-[0.3em] mb-8">Financial Settlement</h2>
+              <div className="space-y-2 mb-10">
+                <p className="text-5xl font-black tracking-tighter tabular-nums leading-none">${stats.TotalSpend.toLocaleString()}</p>
+                <p className="text-xs font-bold text-gray-500 uppercase tracking-widest">Gross Expenditure</p>
               </div>
-              <div className="flex items-center justify-between">
-                <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Verification Due</span>
-                <span className="text-sm font-black">{stats.PendingInvoices}</span>
+              
+              <div className="space-y-6 pt-10 border-t border-white/5">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="w-1.5 h-1.5 bg-yellow-500 rounded-full"></div>
+                    <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Pending Orders</span>
+                  </div>
+                  <span className="text-lg font-black">{stats.PendingOrders}</span>
+                </div>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="w-1.5 h-1.5 bg-purple-500 rounded-full"></div>
+                    <span className="text-[10px] font-black text-gray-400 uppercase tracking-widest">Invoices Due</span>
+                  </div>
+                  <span className="text-lg font-black">{stats.PendingInvoices}</span>
+                </div>
               </div>
             </div>
           </div>
 
-          <div className="sap-card p-6">
-            <h2 className="sap-tile-header flex items-center gap-2">
+          <div className="sap-glass-card p-8 border-l-8 border-l-orange-500">
+            <h2 className="text-xs font-black text-gray-400 uppercase tracking-widest mb-6 flex items-center gap-2">
               <AlertCircle size={16} className="text-orange-500" />
-              Compliance Alerts
+              Governance Hub
             </h2>
             {stats.PendingApproval > 0 ? (
-              <div className="p-4 bg-orange-50 border border-orange-100 rounded-xl space-y-3">
-                <div className="flex items-center gap-2 text-orange-800 font-black text-[10px] uppercase tracking-wider">
-                  <div className="w-2 h-2 bg-orange-500 rounded-full animate-ping"></div>
-                  High Value Release
+              <div className="space-y-4">
+                <div className="p-5 bg-orange-500/10 rounded-2xl border border-orange-500/20">
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="w-2 h-2 bg-orange-500 rounded-full animate-ping"></div>
+                    <span className="text-[10px] font-black text-orange-800 uppercase tracking-widest">Threshold Breach</span>
+                  </div>
+                  <p className="text-xs text-orange-900/80 font-bold leading-relaxed italic">
+                    {stats.PendingApproval} requisitions require executive override ($5,000+ limit).
+                  </p>
                 </div>
-                <p className="text-[11px] text-orange-700 font-medium leading-relaxed">
-                  {stats.PendingApproval} transaction(s) exceed standard delegation of authority thresholds ($5,000+).
-                </p>
               </div>
             ) : (
-              <div className="flex flex-col items-center justify-center py-6 gap-2 text-green-600 bg-green-50/50 rounded-xl border border-green-100/50">
-                <CheckCircle size={24} />
-                <span className="text-[10px] font-black uppercase tracking-widest">Audit Passed</span>
+              <div className="flex flex-col items-center justify-center py-8 gap-4 bg-green-500/5 rounded-2xl border border-green-100/50">
+                <div className="w-16 h-16 bg-green-500/20 rounded-full flex items-center justify-center text-green-600">
+                  <CheckCircle size={32} />
+                </div>
+                <span className="text-[10px] font-black text-green-700 uppercase tracking-widest">Regulatory Clean</span>
               </div>
             )}
           </div>
 
-          <div className="sap-card p-6">
-            <h2 className="sap-tile-header flex items-center gap-2">
+          <div className="sap-glass-card p-8 border-l-8 border-l-blue-500">
+            <h2 className="text-xs font-black text-gray-400 uppercase tracking-widest mb-6 flex items-center gap-2">
               <BarChart3 size={16} className="text-blue-500" />
               Strategic Spend
             </h2>
