@@ -18,7 +18,7 @@ import {
 } from 'lucide-react';
 
 export default function Dashboard() {
-  const { getStats, stock, isHydrated, resetOrders, approveOrder } = useOrders();
+  const { getStats, stock, isHydrated, resetOrders } = useOrders();
   const { addNotification } = useNotification();
   
   if (!isHydrated) return null;
