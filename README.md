@@ -1,123 +1,121 @@
 # SAP Procure-to-Pay (P2P) Management System Simulation
 
-A high-fidelity web application built with **Next.js 15** that simulates the core SAP Procure-to-Pay (P2P) business process. This project demonstrates enterprise-level workflow integration, master data governance, and financial internal controls.
+A web-based academic project built with Next.js 15 to simulate the core SAP Procure-to-Pay business process. The application demonstrates how purchase requisitions, purchase orders, goods receipts, invoice verification, and payment activities can be represented in a structured workflow.
 
----
+## Overview
 
-## 🚀 Overview
+The system models a status-driven procurement lifecycle inspired by SAP MM (Materials Management) and FI (Financial Accounting) processes. It focuses on workflow continuity, basic master data usage, internal controls, and transaction visibility across the P2P cycle.
 
-This system provides a structured, status-based environment mirroring the SAP MM (Materials Management) and FI (Financial Accounting) modules. It enforces a strict procurement lifecycle, ensuring data integrity and financial accountability at every stage.
-
-## 🌐 Live Demo
-
-The application is deployed and accessible online:
-
-👉 https://sap-p2p.vercel.app/
-
-Users can explore the full Procure-to-Pay workflow, including requisition creation, order processing, goods receipt, invoice verification, and payment simulation.
-
-
-### The P2P Lifecycle:
-`Purchase Requisition (PR)` ➔ `Purchase Order (PO)` ➔ `Goods Receipt (GR)` ➔ `Invoice Verification (IR)` ➔ `Payment (FI)`
-
----
-
-## ✨ Key Features
-
-### 🔹 Enterprise Business Logic
-- **Release Strategy (Approvals):** Implements a high-value financial control where any requisition exceeding $5,000 triggers a mandatory "Pending Approval" state, requiring executive release before ordering.
-- **Inventory & Stock Management:** Integrated virtual warehouse that automatically updates stock levels upon Goods Receipt (MIGO), allowing for real-time inventory tracking.
-- **Vendor Performance Analytics:** Advanced logic calculates delivery "Lead Times" for every vendor, providing a reliability score based on the speed from Order to Receipt.
-- **Three-Way Match:** Strict accounting control ensuring Invoices (MIRO) are only verified if they align perfectly with the original Purchase Order and confirmed Goods Receipt.
-- **Account Assignment (Category K):** Enforces mandatory Cost Center allocation for all non-stock/service items to ensure departmental budget accountability.
-
-### 🔹 Advanced User Experience
-- **Next-Gen SAP Horizon UI:** A premium design system featuring **High-Contrast Glassmorphism**, floating navigation consoles, and micro-interactions.
-- **SAP T-Code Engine:** Navigate the entire system using standard transaction codes (e.g., `ME51N`, `MIGO`, `MIRO`, `F-53`) via a functional command terminal.
-- **Multi-Tab Terminal Support:** Support for the `/N` prefix (e.g., `/NME21N`) allows power users to open transactions in new browser tabs simultaneously.
-- **Enterprise Reporting:** One-click **Export to CSV** functionality on all data tables for external audit and procurement reporting.
-
-### 🔹 Technical Core
-- **Client-Side Persistence:** Utilizing the Web Storage API (LocalStorage) to maintain a persistent corporate environment that survives browser refreshes.
-- **Visual Intelligence:** Executive dashboard with dynamic SVG/CSS visualizations for Spend, Inventory, and Logistic Latency.
-- **Modern Stack:** Built with **Next.js 15 (App Router)** and **Tailwind CSS** for maximum performance and a responsive, enterprise-grade aesthetic.
-
----
-
-## 🛠️ Tech Stack
-
-- **Framework:** [Next.js 15](https://nextjs.org/) (App Router)
-- **Language:** JavaScript (React.js)
-- **Styling:** [Tailwind CSS](https://tailwindcss.com/)
-- **Icons:** [Lucide React](https://lucide.dev/)
-- **State Management:** React Hooks (useState, useEffect)
-- **Storage:** Web Storage API (LocalStorage)
-
----
-
-## 📂 Project Structure
+The P2P lifecycle used in this project is:
 
 ```text
-├── app/                  # Next.js App Router (Routes)
-│   ├── dashboard/        # Executive Analytics
-│   ├── requisition/      # PR Creation (ME51N)
-│   ├── orders/           # PO Management (ME21N)
-│   ├── goods-receipt/    # Logistics (MIGO)
-│   ├── invoice/          # Accounting (MIRO)
-│   └── payment/          # Finance (F-53)
-├── components/           # Reusable UI Components
-│   ├── Sidebar.js        # Navigation & Command Bar
-│   ├── DataTable.js      # Global Searchable Tables
-│   └── DocumentModal.js  # PO Document Generation
-├── hooks/                # Custom React Hooks
-│   └── useOrders.js      # Centralized P2P Business Logic
-└── public/               # Static Assets
+Purchase Requisition (PR) -> Purchase Order (PO) -> Goods Receipt (GR) -> Invoice Verification (IR) -> Payment (FI)
 ```
 
----
+## Features
 
-## 🏁 Getting Started
+- Release strategy simulation for requisitions above $5,000.
+- Stock and non-stock procurement flows.
+- Mandatory cost center assignment for non-stock or service items.
+- Purchase requisition to purchase order conversion.
+- Goods receipt confirmation and inventory update simulation.
+- Three-way match concept for purchase order, goods receipt, and invoice verification.
+- Payment processing simulation with payment history.
+- SAP-style transaction code navigation, including `ME51N`, `ME21N`, `MIGO`, `MIRO`, and `F-53`.
+- Dashboard summaries for workflow status, spend, vendor activity, and pending actions.
+- CSV export support for table data.
+- Browser-based persistence using `localStorage`.
+
+## Tech Stack
+
+- Framework: [Next.js 15](https://nextjs.org/) with App Router
+- Language: JavaScript and React
+- Styling: [Tailwind CSS](https://tailwindcss.com/)
+- Icons: [Lucide React](https://lucide.dev/)
+- State management: React hooks
+- Storage: Web Storage API (`localStorage`)
+
+## Installation
 
 ### Prerequisites
-- Node.js (v18.0.0 or higher)
-- npm or yarn
 
-### Installation & Running
+- Node.js 18 or higher
+- npm
 
-1. **Clone the repository:**
+### Setup
+
+1. Clone the repository:
+
    ```bash
-   git clone https://github.com/the-raja/Sap-p2p.git
-   cd Sap-p2p
+   git clone https://github.com/Nandini270405/SAP_PROJECT-P2P.git
+   cd SAP_PROJECT-P2P
    ```
 
-2. **Install dependencies:**
+2. Install dependencies:
+
    ```bash
    npm install
    ```
 
-3. **Run the development server:**
+3. Start the development server:
+
    ```bash
    npm run dev
    ```
 
-4. **Access the application:**
-   Open [http://localhost:3000](http://localhost:3000) in your browser.
+4. Open the application:
 
----
+   ```text
+   http://localhost:3000
+   ```
 
-## 📖 Business Rules Implemented
+## Project Structure
 
-1. **No Step-Skipping:** An item cannot be received if it hasn't been ordered. It cannot be paid if the invoice hasn't been verified.
-2. **Accounting Integrity:** Manual text entries (Non-stock) trigger a mandatory Cost Center selection field.
-3. **Master Data Sync:** Prices for Stock Items are automatically pulled from the Material Master and cannot be manually altered by the user (simulating Info Records).
-4. **Document Mapping:** IDs evolve through the lifecycle (e.g., `PR-1001` becomes `PO-1001` once converted).
+```text
+├── app/                  # Next.js App Router pages
+│   ├── dashboard/        # Dashboard and analytics
+│   ├── requisition/      # Purchase requisition workflow
+│   ├── orders/           # Purchase order workflow
+│   ├── goods-receipt/    # Goods receipt workflow
+│   ├── invoice/          # Invoice verification workflow
+│   └── payment/          # Payment workflow
+├── components/           # Reusable UI components
+│   ├── Sidebar.js
+│   ├── CommandBar.js
+│   ├── DataTable.js
+│   ├── DocumentModal.js
+│   └── StatusBadge.js
+├── hooks/                # Shared React hooks
+│   └── useOrders.js
+├── public/               # Static assets
+└── DOCUMENTATION.md      # Detailed project documentation
+```
 
----
+## Routes and Pages
 
-## 📄 Documentation
+- `/` - Landing page for the P2P simulation.
+- `/dashboard` - Summary cards, spend analysis, vendor analytics, and workflow status.
+- `/requisition` - Create purchase requisitions using stock or non-stock items.
+- `/orders` - Convert eligible requisitions into purchase orders and view PO documents.
+- `/goods-receipt` - Record goods receipt for ordered items.
+- `/invoice` - Verify invoices using the three-way match concept.
+- `/payment` - Process verified invoices and view payment history.
 
-For a detailed breakdown of the system architecture and academic report, please refer to:
+## Usage
+
+Use the sidebar or command bar to move through the procurement lifecycle. Create a requisition, convert it to a purchase order, confirm goods receipt, verify the invoice, and complete payment. The project stores data in the browser, so transactions remain available after refresh until the local data is reset.
+
+## Business Rules Implemented
+
+1. Items must move through the workflow in sequence.
+2. Non-stock and service items require a cost center.
+3. Stock item prices are filled from the material data used by the app.
+4. Transaction IDs change as records move through the lifecycle, for example `PR-1001` to `PO-1001`.
+5. Invoices are verified only after the related goods receipt exists.
+
+## Documentation
+
+Additional project material is available in:
+
 - [Technical Documentation](./DOCUMENTATION.md)
-
----
-
+- [Project Documentation PDF](./PROJECT_DOCUMENTATION.pdf)

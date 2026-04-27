@@ -1,7 +1,7 @@
 # SAP Procure-to-Pay (P2P) Management System — Documentation
 
 ## 1. Project Overview
-The **SAP P2P Management System** is a high-fidelity web simulation of the standard SAP "Procure-to-Pay" business process. Built with **Next.js 15**, this application demonstrates the end-to-end lifecycle of corporate procurement, from the initial identification of a need to the final financial settlement.
+The **SAP P2P Management System** is a web simulation of the standard SAP "Procure-to-Pay" business process. Built with **Next.js 15**, this application demonstrates the end-to-end lifecycle of corporate procurement, from the initial identification of a need to the final financial settlement.
 
 ### Objective
 The primary goal is to simulate the structured, status-driven environment of an Enterprise Resource Planning (ERP) system, enforcing business rules, master data governance, and financial accountability.
@@ -125,4 +125,4 @@ A centralized custom hook manages all logic. It provides:
 ---
 
 ## 7. Conclusion
-This project successfully bridges the gap between web development and enterprise business logic. It demonstrates not only technical proficiency in the **Next.js** ecosystem but also a deep understanding of **Procurement Operations** and **ERP Systems Architecture**, making it a "best-in-class" simulation for any SAP-focused academic or professional project.
+This project connects web development concepts with enterprise business logic. It demonstrates practical work with the **Next.js** ecosystem and an academic understanding of **Procurement Operations** and **ERP Systems Architecture**.

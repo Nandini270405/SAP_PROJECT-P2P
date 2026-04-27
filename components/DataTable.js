@@ -5,6 +5,34 @@ import StatusBadge from './StatusBadge';
 const DataTable = ({ columns, data, actions }) => {
   const [search, setSearch] = useState('');
 
+  const getCellValue = (col, row) => {
+    if (col.render) {
+      return col.render(row[col.key], row);
+    }
+
+    if (col.key === 'price') {
+      return `$${Number(row[col.key] || 0).toLocaleString()}`;
+    }
+
+    return row[col.key] ?? '';
+  };
+
+  const getExportValue = (col, row) => {
+    const rawValue = row[col.key];
+    const renderedValue = col.render ? col.render(rawValue, row) : rawValue;
+
+    if (typeof renderedValue === 'string' || typeof renderedValue === 'number') {
+      return renderedValue;
+    }
+
+    return rawValue ?? '';
+  };
+
+  const escapeCSVValue = (value) => {
+    const stringValue = String(value ?? '');
+    return /[",\n]/.test(stringValue) ? `"${stringValue.replace(/"/g, '""')}"` : stringValue;
+  };
+
   const filteredData = data.filter((row) =>
     Object.values(row).some(
       (val) =>
@@ -17,8 +45,8 @@ const DataTable = ({ columns, data, actions }) => {
     const headers = columns.map(col => col.label).join(',');
     const rows = filteredData.map(row => 
       columns.map(col => {
-        const val = row[col.key];
-        return typeof val === 'string' && val.includes(',') ? `"${val}"` : val;
+        const val = getExportValue(col, row);
+        return escapeCSVValue(val);
       }).join(',')
     );
     const csvContent = [headers, ...rows].join('\n');
@@ -82,12 +110,8 @@ const DataTable = ({ columns, data, actions }) => {
                     <td key={col.key} className="px-6 py-4 text-sm text-gray-700 whitespace-nowrap">
                       {col.key === 'status' ? (
                         <StatusBadge status={row[col.key]} />
-                      ) : col.key === 'price' || col.key === 'total' ? (
-                        `$${Number(row[col.key]).toLocaleString()}`
-                      ) : col.render ? (
-                        col.render(row[col.key], row)
                       ) : (
-                        row[col.key]
+                        getCellValue(col, row)
                       )}
                     </td>
                   ))}

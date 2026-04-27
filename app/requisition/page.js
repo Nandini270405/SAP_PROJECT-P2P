@@ -7,7 +7,7 @@ import DataTable from '@/components/DataTable';
 import { Database, Edit3, Settings } from 'lucide-react';
 
 export default function Requisition() {
-  const { orders, addOrder, isHydrated, masterData } = useOrders();
+  const { orders, addOrder, approveOrder, isHydrated, masterData } = useOrders();
   const { addNotification } = useNotification();
   
   // SAP-like states: Stock Item vs Non-Stock (Free Text)
